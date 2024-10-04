@@ -6,24 +6,32 @@ const App = () => {
 
   const handleButtonClick = (value) => {
     if (value === "C") {
-      setInputValue("");
-
-      if (!inputValue) {
+      if (inputValue === "" && result === "") {
         setResult("Error");
       } else {
         setResult("");
       }
     } else if (value === "=") {
-      try {
-        setResult(eval(inputValue));
-      } catch (e) {
-        setResult(e);
+      if (incompleteExpression(inputValue)) {
+        setResult("Error");
+      } else {
+        try {
+          setResult(eval(inputValue));
+        } catch (e) {
+          setResult(e);
+        }
       }
 
       setInputValue("");
     } else {
       setInputValue((prev) => prev + value);
     }
+  };
+
+  const incompleteExpression = (expression) => {
+    const lastChar = expression[expression.length - 1];
+    const operators = ["+", "-", "/", "*"];
+    return operators.includes(lastChar);
   };
 
   return (
@@ -33,7 +41,7 @@ const App = () => {
         type="text"
         value={inputValue}
         readOnly
-        // onChange={(e) => setInputValue(e.target.value)}
+        // onSubmit={(e) => e.preventDefault}
       />
       <div className="result-div">{result}</div>
 
