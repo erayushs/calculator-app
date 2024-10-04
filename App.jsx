@@ -30,7 +30,7 @@ const App = () => {
 
   const incompleteExpression = (expression) => {
     const lastChar = expression[expression.length - 1];
-    const operators = ["+", "-", "/", "*"];
+    const operators = ["+", "-", "/", "*", "="];
     return operators.includes(lastChar);
   };
 
