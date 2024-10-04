@@ -11,6 +11,8 @@ const App = () => {
       } else {
         setResult("");
       }
+    } else if (value === "=" && inputValue === "") {
+      setResult("Error");
     } else if (value === "=") {
       if (incompleteExpression(inputValue)) {
         setResult("Error");
